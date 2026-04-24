@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Break-even Calculator Pro</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI';
+  background: linear-gradient(135deg, #2b2b2b, #1f1f1f);
+  color: #f5f5dc;
+  padding: 20px;
+}
+
+/* Container */
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 14px;
+
+  background: rgba(245, 245, 220, 0.08);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(245, 245, 220, 0.15);
+
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  color: #c2b280;
+}
+
+.brand {
+  text-align: center;
+  font-size: 12px;
+  color: #d6d3c9;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+  font-size: 14px;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+
+  border-radius: 8px;
+  border: 1px solid #6b6b5e;
+
+  background: #3b3b3b;
+  color: #f5f5dc;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #c2b280, #a89f6b);
+  color: #1f1f1f;
+
+  box-shadow: 0 0 10px rgba(194,178,128,0.5);
+}
+
+/* Result Box */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+
+  border-radius: 10px;
+
+  background: rgba(20,20,20,0.8);
+
+  box-shadow: 0 0 15px rgba(194,178,128,0.3);
+}
+
+/* Highlight */
+.highlight {
+  color: #c2b280;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Notes */
+.note {
+  font-size: 13px;
+  color: #d6d3c9;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📊 Break-even Calculator</h2>
+
+<p class="brand">Created by Rashmeen | Version 2.0</p>
+
+<label>Fixed Cost (₹)</label>
+<input type="number" id="fixedCost" placeholder="Enter total fixed cost">
+
+<label>Selling Price per Unit (₹)</label>
+<input type="number" id="sellingPrice" placeholder="Enter selling price">
+
+<label>Variable Cost per Unit (₹)</label>
+<input type="number" id="variableCost" placeholder="Enter variable cost">
+
+<button onclick="calculateBE()">Calculate Break-even</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function calculateBE() {
+
+let fixed = parseFloat(document.getElementById("fixedCost").value) || 0;
+let price = parseFloat(document.getElementById("sellingPrice").value) || 0;
+let variable = parseFloat(document.getElementById("variableCost").value) || 0;
+
+if (price <= variable) {
+  document.getElementById("output").innerHTML = 
+  "⚠️ Selling price must be greater than variable cost";
+  return;
+}
+
+let contribution = price - variable;
+let breakeven = fixed / contribution;
+
+document.getElementById("output").innerHTML = `
+
+<div class="result">
+
+Break-even Units:<br>
+<span class="highlight">${Math.ceil(breakeven)}</span>
+
+<div class="note">
+You must sell at least this many units to cover all costs.
+</div>
+
+<br>
+
+<div class="note">
+
+<b>Working:</b><br><br>
+
+Contribution per unit = Selling Price − Variable Cost<br>
+= ${price} − ${variable} = ${contribution}<br><br>
+
+Break-even = Fixed Cost ÷ Contribution<br>
+= ${fixed} ÷ ${contribution} = ${breakeven.toFixed(2)}<br><br>
+
+Results are based on standard cost accounting formulas.
+
+</div>
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
